@@ -4,7 +4,7 @@ var numberFormat = new Intl.NumberFormat('pt-BR', {
 
 const generateNewTagFromOld = (oldYear, oldMonth, oldDay, oldItr) => {
   const curDate = new Date();
-  const curDay = numberFormat.format(curDate.getDate() + 1);
+  const curDay = numberFormat.format(curDate.getDate());
   const curMonth = numberFormat.format(curDate.getMonth() + 1);
   const curYear = curDate.getFullYear();
   console.log(oldYear, oldMonth, oldDay, oldItr)
