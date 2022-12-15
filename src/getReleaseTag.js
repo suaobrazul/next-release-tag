@@ -1,29 +1,30 @@
-const generateNewTagFromOld = (oldYear, oldMonth, oldItr) => {
+var numberFormat = new Intl.NumberFormat('pt-BR', { 
+  minimumIntegerDigits: 2
+})
+
+const generateNewTagFromOld = (oldYear, oldMonth, oldDay, oldItr) => {
   const curDate = new Date();
-  const curMonth = curDate.getMonth() + 1;
-  const curYear = curDate.getFullYear() % 100;
-  let newYear = curYear;
-  let newMonth = curMonth;
+  const curDay = numberFormat.format(curDate.getDate() + 1);
+  const curMonth = numberFormat.format(curDate.getMonth() + 1);
+  const curYear = curDate.getFullYear();
+  console.log(oldYear, oldMonth, oldDay, oldItr)
   let newItr = oldItr + 1;
-  if (curMonth !== oldMonth) {
+  console.log(curYear, curMonth, curDay, newItr)
+  if (curMonth != oldMonth || curYear !=  oldYear || curDay != oldDay)
     newItr = 1;
-    newMonth = curMonth;
-  }
-  if (curYear != oldYear) {
-    newYear = curYear;
-  }
-  return `v${newYear}.${newMonth}.${newItr}`;
+  return `${curYear}-${curMonth}-${curDay}-${newItr}`;
 };
 
 const getNewReleaseTag = (oldReleaseTag) => {
-  if (oldReleaseTag && oldReleaseTag.startsWith("v")) {
-    const [oldYear, oldMonth, oldItr] = oldReleaseTag
-      .substring(1)
-      .split(".")
+  if (oldReleaseTag && (oldReleaseTag.startsWith("DEPLOY-") || oldReleaseTag.startsWith("DEV-"))){
+    const [oldYear, oldMonth, oldDay, oldItr] = oldReleaseTag
+      .replace("DEPLOY-","")
+      .replace("DEV-","")
+      .split("-")
       .map((x) => Number(x));
-    return generateNewTagFromOld(oldYear, oldMonth, oldItr);
+    return generateNewTagFromOld(oldYear, oldMonth, oldDay, oldItr);
   }
-  return generateNewTagFromOld(-1, -1, -1);
+  return generateNewTagFromOld(-1, -1, -1, -1);
 };
 
 export default getNewReleaseTag;

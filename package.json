@@ -2,9 +2,9 @@
   "name": "next-release-tag",
   "version": "1.0.0",
   "description": "Github Action to generate next Release Tag",
-  "author": "amitsingh-007",
+  "author": "suaobrazul",
   "license": "MIT-open-group",
-  "homepage": "https://github.com/amitsingh-007/next-release-tag#readme",
+  "homepage": "https://github.com/suaobrazul/next-release-tag#readme",
   "scripts": {
     "build": "webpack --config ./webpack.js",
     "dist": "npm run eslint && npm test && npm run build",
